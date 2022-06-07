@@ -1,0 +1,325 @@
+{% extends "Reportes/pantallaSubGrupos.html" %}
+{% load static %}
+
+
+{% block content %}
+
+<!--Inicia PantallaGrupos       -->
+
+
+<div class="row" style=" height: 60px;">
+
+    <div class="col-xl-3"></div>
+
+    {% for grupos in Grupos %}
+
+    {% if grupos.nombreGrupo == 'ASISTENCIAL' %}
+
+    <div class="col-xl-3" style="width:50px;height:10px;">
+        <figure class="figure">
+
+            <img src="{% static '/img/ASISTENCIAL.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
+                    {{grupos.nombreGrupo}} </a>
+            </figcaption>
+        </figure>
+        {{grupos.grupo}}
+    </div>
+
+    {% endif %}
+
+
+    {% if grupos.nombreGrupo == 'ADMINISTRATIVO' %}
+
+    <div class="col-xl-3" style="width:50px;height:10px;">
+        <figure class="figure">
+
+            <img src="{% static '/img/ADMINISTRATIVO.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
+                    {{grupos.nombreGrupo}} </a>
+            </figcaption>
+        </figure>
+        {{grupos.grupo}}
+    </div>
+
+    {% endif %}
+
+    {% endfor %}
+
+
+    <div class="col-xl-3"></div>
+
+
+</div>
+<br>
+<br>
+<br>
+
+
+<!--Fin PantallaGrupos       -->
+
+<!--Inicia PantallaSubGrupos       -->
+
+
+<div class="row" style=" height: 50px;">
+
+    <div class="col-xl-1"></div>
+
+     {% for subGrupos in SubGrupos %}
+
+
+    <div class="col-xl-2" style="width:50px;height:10px;">
+
+                {% if subGrupos.nombreSubGrupo == 'HOSPITALIZACION' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/HOSPITALIZACION.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+
+        {% if subGrupos.nombreSubGrupo == 'CIRUGIA' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/CIRUGIA.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+        {% if subGrupos.nombreSubGrupo == 'UCI' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/UCI.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+        {% if subGrupos.nombreSubGrupo == 'URGENCIAS' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/URGENCIAS.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+        {% if subGrupos.nombreSubGrupo == 'FARMACIA' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/FARMACIA.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+        {% if subGrupos.nombreSubGrupo == 'FACTURACION' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/FACTURACION.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+         {% if subGrupos.nombreSubGrupo == 'CARTERA' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/CARTERA.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+         {% if subGrupos.nombreSubGrupo == 'GLOSAS' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/GLOSAS.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+            {% if subGrupos.nombreSubGrupo == 'ESTADISTICAS' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/Estadisticas.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+          {% if subGrupos.nombreSubGrupo == 'CALIDAD' %}
+
+        <figure class="figure">
+
+            <img src="{% static '/img/Calidad.jpg' %}" class="figure-img img-fluid rounded"
+                 style="width:200px;height:100px;"
+                 alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
+                    {{subGrupos.nombreSubGrupo}} </a>
+            </figcaption>
+        </figure>
+        {% endif %}
+
+
+    </div>
+
+    {% endfor %}
+
+
+
+
+
+
+    <div class="col-xl-1"></div>
+
+
+</div>
+<br>
+<br>
+<br>
+
+
+<!--Fin PantallaSubGrupos       -->
+<center>
+
+    <form id="combo" action="/Reporte1" method="GET">
+
+        <input type="hidden" id="username" name="username" value="{{Username}}">
+        <input type="hidden" id="sedeSeleccionada" name="sedeSeleccionada" value="{{SedeSeleccionada}}">
+        <input type="hidden" id="reporteSeleccionado" name="reporteSeleccionado" value="nada">
+
+         <input type="hidden" id="grupo" name="grupo" value="{{Grupo}}">
+         <input type="hidden" id="subGrupo" name="subGrupo" value="{{SubGrupo}}">
+          <input type="hidden" id="numreporte" name="numreporte" value="">
+
+
+          <br>
+                <br>
+
+
+        <div class="form-row">
+            <div class="form-group col-md-3 ">
+
+            </div>
+
+            <div class="form-group col-md-2 ">
+
+
+                SELECCIONE INFORME
+
+                <center>
+
+
+                    <select class="form-control" id="reportesUsuarioSel" name="reportesUsuarioSel">
+                        {% for reportesUsuario in ReportesUsuario %}
+                        <option value="{{reportesUsuario.numreporte}}"> {{reportesUsuario.reporte}}
+
+
+                        </option>
+
+                        {% endfor %}
+                    </select>
+
+                </center>
+
+            </div>
+
+            <div class="form-group col-md-2 ">
+                <br>
+                <span id="vale"> <button type="button" id="boton1" onclick="dispara()"> BUSCAR</button> </span>
+
+            </div>
+
+
+        </div>
+    </form>
+</center>
+
+<script>
+
+function dispara()
+{
+
+    username = document.getElementById("username").value;
+    sedeSeleccionada=  document.getElementById("sedeSeleccionada").value;
+     grupo = document.getElementById("grupo").value;
+      subGrupo = document.getElementById("subGrupo").value;
+
+
+        var reporteSeleccionado =  document.getElementById("reportesUsuarioSel").value;
+
+        document.getElementById("numreporte").value = reporteSeleccionado;
+
+        var final = "/Reporte1/" + reporteSeleccionado + "," + username +"," + sedeSeleccionada + "," + grupo + "," + subGrupo;
+
+
+
+
+   // document.getElementById("vale").value=    "<a href ='"  + final + "'>Pica Aqui</a>";
+    document.getElementById("vale").innerHTML=    "<a href ='"  + final + "'>Ingresa Aqui</a>";
+   // document.getElementById("boton2").innerHTML=    "<a href ='"  + final + "'>Aqui</a>";
+
+    //document.getElementById("combo").submit();
+
+    }
+
+</script>
+
+
+{% endblock %}
