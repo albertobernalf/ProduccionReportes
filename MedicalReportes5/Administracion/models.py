@@ -14,7 +14,7 @@ class Mae_Reportes(models.Model):
     id = models.AutoField(primary_key=True)
     nom_reporte = models.CharField(max_length=120, unique = True)
     descripcion = models.CharField(max_length=500, default='')
-    cuerpo_sql = models.CharField(max_length=5000, default='', editable=True)
+    cuerpo_sql = models.CharField(max_length=15000, default='', editable=True)
     encabezados = models.CharField(max_length=1000, default='', editable=True)
     mae_gruporeportes = models.ForeignKey('Mae_GrupoReportes', default=1, on_delete=models.PROTECT, null=False)
     mae_subgruporeportes = models.ForeignKey('Mae_SubGrupoReportes',default=1, on_delete=models.PROTECT, null=False)

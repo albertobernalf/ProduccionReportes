@@ -953,9 +953,7 @@ class Reporte1PdfView(TemplateView):
 
                     for col in range(len(lasColumnas)):
                         campo = row[col]
-                        print("fila= ", row_num)
-                        print("columna= ", col)
-                        print ("campo= ", campo)
+
                         campoTot = campoTot  + str(campo) + ","
 
                     writer.writerow([        smart_str(campoTot),     ])
