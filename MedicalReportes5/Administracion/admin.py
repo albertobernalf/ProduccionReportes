@@ -25,10 +25,10 @@ class mae_ReportesAdmin(admin.ModelAdmin):
 
 class mae_GrupoReportesAdmin(admin.ModelAdmin):
 
-    list_display  = ("id","nom_grupo","estadoreg")
-    search_fields = ("id","nom_grupo","estadoreg")
+    list_display  = ("id","nom_grupo","logo","estadoreg")
+    search_fields = ("id","nom_grupo","logo","estadoreg")
     # Filtrar
-    list_filter = ("id","nom_grupo","estadoreg")
+    list_filter = ("id","nom_grupo","logo","estadoreg")
 
     def get_actions(self, request):
         actions = super(mae_GrupoReportesAdmin, self).get_actions(request)
@@ -42,10 +42,10 @@ class mae_GrupoReportesAdmin(admin.ModelAdmin):
 
 class mae_SubGrupoReportesAdmin(admin.ModelAdmin):
 
-    list_display  = ("id","mae_gruporeportes","nom_subgrupo","estadoreg")
-    search_fields = ("id","mae_gruporeportes","nom_subgrupo","estadoreg")
+    list_display  = ("id","mae_gruporeportes","nom_subgrupo","logo","estadoreg")
+    search_fields = ("id","mae_gruporeportes","nom_subgrupo","logo","estadoreg")
     # Filtrar
-    list_filter = ("id","mae_gruporeportes","nom_subgrupo","estadoreg")
+    list_filter = ("id","mae_gruporeportes","nom_subgrupo","logo","estadoreg")
 
     def get_actions(self, request):
         actions = super(mae_SubGrupoReportesAdmin, self).get_actions(request)

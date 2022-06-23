@@ -1,4 +1,4 @@
-{% extends "Reportes/pantallaSubGrupos.html" %}
+{% extends "Reportes/cabeza.html" %}
 {% load static %}
 
 {% block content %}
@@ -10,345 +10,202 @@
 <input type="hidden" id="numreporte" name="numreporte" value="{{numreporte}}">
 <input type="hidden" id="grupo" name="grupo" value="{{Grupo}}">
 <input type="hidden" id="subGrupo" name="subGrupo" value="{{SubGrupo}}">
+<input type="hidden" id="reporteSeleccionado" name="reporteSeleccionado" value="nada">
+<input type="hidden" id="parametrosSeleccionado" name="parametrosSeleccionado" value="{{Parametros}}">
 
-
-<div class="row" style=" height: 60px;">
-
-    <div class="col-xl-3"></div>
-
-    {% for grupos in Grupos %}
- {% if grupos.nombreGrupo == 'ASISTENCIAL' %}
-
-    <div class="col-xl-3" style="width:50px;height:10px;">
-        <figure class="figure">
-
-            <img src="{% static '/img/ASISTENCIAL.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
-                    {{grupos.nombreGrupo}} </a>
-            </figcaption>
-        </figure>
-        {{grupos.grupo}}
-    </div>
-
-    {% endif %}
-
-
-    {% if grupos.nombreGrupo == 'ADMINISTRATIVO' %}
-
-    <div class="col-xl-3" style="width:50px;height:10px;">
-        <figure class="figure">
-
-            <img src="{% static '/img/ADMINISTRATIVO.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
-                    {{grupos.nombreGrupo}} </a>
-            </figcaption>
-        </figure>
-        {{grupos.grupo}}
-    </div>
-
-    {% endif %}
-
-    {% endfor %}
-
-
-    <div class="col-xl-3"></div>
-
-
-</div>
-<br>
-<br>
-<br>
-
-
-<!--Fin PantallaGrupos       -->
-
-<!--Inicia PantallaSubGrupos       -->
-
-
-<div class="row" style=" height: 50px;">
-
-    <div class="col-xl-1"></div>
-
- {% for subGrupos in SubGrupos %}
-
-
-    <div class="col-xl-2" style="width:50px;height:10px;">
-
-                {% if subGrupos.nombreSubGrupo == 'HOSPITALIZACION' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/HOSPITALIZACION.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-
-        {% if subGrupos.nombreSubGrupo == 'CIRUGIA' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/CIRUGIA.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-        {% if subGrupos.nombreSubGrupo == 'UCI' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/UCI.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-        {% if subGrupos.nombreSubGrupo == 'URGENCIAS' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/URGENCIAS.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-        {% if subGrupos.nombreSubGrupo == 'FARMACIA' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/FARMACIA.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-    </div>
-
-
-        {% if subGrupos.nombreSubGrupo == 'FACTURACION' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/FACTURACION.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-         {% if subGrupos.nombreSubGrupo == 'CARTERA' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/CARTERA.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-         {% if subGrupos.nombreSubGrupo == 'GLOSAS' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/GLOSAS.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-     {% if subGrupos.nombreSubGrupo == 'CALIDAD' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/Calidad.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-     {% if subGrupos.nombreSubGrupo == 'ESTADISTICAS' %}
-
-        <figure class="figure">
-
-            <img src="{% static '/img/Estadisticas.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/combo/{{Username}}, {{SedeSeleccionada}}, {{Grupo}}, {{subGrupos.id}}  ">
-                    {{subGrupos.nombreSubGrupo}} </a>
-            </figcaption>
-        </figure>
-        {% endif %}
-
-
-
-
-    {% endfor %}
-
-
-
-    <div class="col-xl-1"></div>
-
-
-</div>
-
-<br>
-<br>
-<br>
-
-
-<!--Fin PantallaSubGrupos       -->
-<br>
 <div class="container">
-    <div class="card">
+    <center>
+        <div class="card">
+            <div class="card-block" align="center">
+                <div id="grilla_data" class="mt-5">      </div>
+
+                <table>
+                    <center>
+
+                        <tr>
+                            <div class="mx-auto" style="width: 1100px; background-color:#808B96  ">
+
+                                <figure class="figure">
+                                    <figcaption class="figure-caption text-right">
+                                        <H1>
+                                              {% for nombreSubGrupoSeleccionado in NombreSubGrupoSeleccionado %}
+                                            <p style="height:50px;font-style:font-size:40px"><b><FONT COLOR="white">REPORTES
+                                                {{nombreSubGrupoSeleccionado.nombreSubGrupo}} </FONT> </b></p>
+                                               {% endfor %}
+                                        </H1>
+
+                                    </figcaption>
+                                </figure>
+
+                            </div>
+
+                        </tr>
+                        <tr>
+                            <!-- INSERTO EL COMBO -->
+
+                            <div class="col-xl-4"></div>
+
+                            <div class="col-xl-4">
+                                <form id="combo" action="/Reporte1" method="GET">
+
+                                    <br>
+                                    <br>
+
+                                    <div class="form-row">
 
 
-        <div class="card-block" align="center">
-            <div id="grilla_data" class="mt-5">
+                                        <div class="form-group col-md-9">
 
 
-            </div>
+                                            Seleccione el reporte a revizar
 
-            <table>
-                <center>
-                    <tr>
-                        <td><font size="7"> Generador de Informes imhotep</font></td>
+                                            <select class="form-control" id="reportesUsuarioSel"
+                                                    name="reportesUsuarioSel" style="width:250px;height:50px;">
+                                                {% for reportesUsuario in ReportesUsuario %}
+                                                <option value="{{reportesUsuario.numreporte}}">
+                                                    {{reportesUsuario.reporte}}
+                                                </option>
 
-                    </tr>
-            </table>
-            <br>
-
-            <form method="post">
-                <input type="hidden" id="grupo" name="grupo" value="{{Grupo}}">
-                <input type="hidden" id="subGrupo" name="subGrupo" value="{{SubGrupo}}">
-
-                <div class="myDiv" id="mensajes"> {{mensaje.mensaje}}</div>
+                                                {% endfor %}
+                                            </select>
 
 
-                {% for parametrosSeleccionado in ParametrosSeleccionado %}
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <br>
+
+                                            <span id="vale"> <button type="button" id="boton1" onclick="dispara()"> BUSCAR</button> </span>
+
+                                        </div>
 
 
-                {{parametrosSeleccionado.param_texto }}
+                                    </div>
+                                </form>
+                            </div>
 
-                <input type={{parametrosSeleccionado.param_tipocampo}} id={{parametrosSeleccionado.parametro}}
-                       name={{parametrosSeleccionado.parametro}} value=""/>
+                            <!-- FIN INSERTO COMBO -->
+
+                        </tr>
+                    </center>
+                </table>
                 <br>
 
-                {% endfor %}
+                <form id="Parametros" method="post">
+                    <input type="hidden" id="grupo" name="grupo" value="{{Grupo}}">
+                    <input type="hidden" id="subGrupo" name="subGrupo" value="{{SubGrupo}}">
+                    <div class="myDiv" id="mensajes"> {{mensaje.mensaje}}</div>
 
-                <p>
-                    <br>
-                    Seleccione Tipo de Archivo :<br>
-                    <br>
+                    {% for parametrosSeleccionado in ParametrosSeleccionado %}
+
+                    <div class="form-group">
+                        {{parametrosSeleccionado.param_texto }}
+
+                        <label for="{{parametrosSeleccionado.parametro}}"></label>
+                        <input type={{parametrosSeleccionado.param_tipocampo}} class="form-control"
+                               id={{parametrosSeleccionado.parametro}}
+                               placeholder="{{parametrosSeleccionado.param_texto }}"
+                               name={{parametrosSeleccionado.parametro}} value=""/>
+
+
+                    </div>
+
+                    {% endfor %}
+
+                    <p>
+                        <br>
+
+                        <br>
+
+                        {% for reporteSeleccionado in ReporteSeleccionado %}
+
+                        {%if reporteSeleccionado.excel == 'A' %}
+                        <input type="radio" name="tipoArchivo" value="excel"></input>
+                        <img src="{% static '/img/EXCEL.JPG' %}" class="figure-img img-fluid rounded"
+                             style="width:150px;height:50px;" alt="...">
+                        {% endif %}
+
+                        {%if reporteSeleccionado.pdf == 'A' %}
+                        <input type="radio" name="tipoArchivo" value="pdf"></input>
+                        <img src="{% static '/img/PDF1.JPG' %}" class="figure-img img-fluid rounded" style="width:150px;height:50px;" alt="...">
+                        {% endif %}
+
+                        {%if reporteSeleccionado.csv == 'A' %}
+                        <input type="radio" name="tipoArchivo" value="csv"></input>
+                        <img src="{% static '/img/CSV.JPG' %}" class="figure-img img-fluid rounded" style="width:150px;height:50px;" alt="...">
+                        {% endif %}
+
+                        {%if reporteSeleccionado.grilla == 'A' %}
+                        <input type="radio" name="tipoArchivo" value="grilla"></input>
+                        <img src="{% static '/img/VISUALIZAR.JPG' %}" class="figure-img img-fluid rounded"
+                             style="width:150px;height:50px;" alt="...">
+                        {% endif %}
+
+
+                        {% endfor %}
+
+                     <input type="submit" value="DESCARGAR" onclick="return mandoEjecutar();"> <span id="proceso"></span>
+
+
+                    </p>
+
                     {% for reporteSeleccionado in ReporteSeleccionado %}
 
-                    {%if reporteSeleccionado.excel == 'A' %}
-                    <input type="radio" name="tipoArchivo" value="excel"> Excel<br>
-                    {% endif %}
+                    <input type="hidden" id="cuerpoSql" name="cuerpoSql" value="{{reporteSeleccionado.cuerpo_sql}}">
+                    <input type="hidden" id="encabezados" name="encabezados"
+                           value="{{reporteSeleccionado.encabezados}}">
+                    <input type="hidden" id="numReporte" name="numReporte" value="{{reporteSeleccionado.numreporte}}">
+                    <input type="hidden" id="nombreReporte" name="nombreReporte"
+                           value="{{reporteSeleccionado.reporte}}">
 
-                    {%if reporteSeleccionado.pdf == 'A' %}
-                    <input type="radio" name="tipoArchivo" value="pdf"> Pdf<br>
-                    {% endif %}
+                    <input type="hidden" id="username" name="username" value="{{Username}}">
+                    <input type="hidden" id="sedeSeleccionada" name="sedeSeleccionada" value="{{SedeSeleccionada}}">
 
-                    {%if reporteSeleccionado.csv == 'A' %}
-                    <input type="radio" name="tipoArchivo" value="csv"> csv<br>
-                    {% endif %}
-
-                    {%if reporteSeleccionado.grilla == 'A' %}
-                    <input type="radio" name="tipoArchivo" value="grilla"> grilla<br>
-
-                    {% endif %}
 
                     {% endfor %}
 
 
-                </p>
-                {% for reporteSeleccionado in ReporteSeleccionado %}
+                       <div class="form-group">
 
-                <input type="hidden" id="cuerpoSql" name="cuerpoSql" value="{{reporteSeleccionado.cuerpo_sql}}">
-                <input type="hidden" id="encabezados" name="encabezados" value="{{reporteSeleccionado.encabezados}}">
-                <input type="hidden" id="numReporte" name="numReporte" value="{{reporteSeleccionado.numreporte}}">
-                <input type="hidden" id="nombreReporte" name="nombreReporte" value="{{reporteSeleccionado.reporte}}">
+                        <figure class="figure">
 
-                <input type="hidden" id="username" name="username" value="{{Username}}">
-                <input type="hidden" id="sedeSeleccionada" name="sedeSeleccionada" value="{{SedeSeleccionada}}">
+            <img src="{% static '/img/inicio.jpg'' %}" class="figure-img img-fluid rounded" style="width:150px;height:50px;" alt="...">
+            <figcaption class="figure-caption text-right">
+                <a href="/emergenteGrupos/{{Username}}, {{SedeSeleccionada}}, {{Grupo}} ">  Retorno </a>
+            </figcaption>
+        </figure>
 
+                    </div>
 
-                {% endfor %}
-
-                <input type="submit" value="Solicitar" onclick="return mandoEjecutar();"/> <span id="proceso"></span>
+                </form>
 
 
-            </form>
-
-
+            </div>
         </div>
-    </div>
 
+        <br>
+
+        <center>
+
+            {% for reporteSeleccionado in ReporteSeleccionado %}
+            Informe: {{reporteSeleccionado.reporte}}
+            {% endfor %}
+            <br>
+
+            {% for nombreUsuario in NombreUsuario %}
+            Usuario: {{nombreUsuario.nom_usuario}}
+            {% endfor %}
+
+        </center>
+
+    </center>
 </div>
-
-<br>
-
-<center>
-
-    {% for reporteSeleccionado in ReporteSeleccionado %}
-    Informe: {{reporteSeleccionado.reporte}}
-    {% endfor %}
-    <br>
-
-    {% for nombreUsuario in NombreUsuario %}
-    Usuario: {{nombreUsuario.nom_usuario}}
-    {% endfor %}
-
-</center>
 
 
 <script>
 
 function mandoEjecutar() {
+
 
    document.getElementById('proceso').innerHTML='Procesando ...';
    document.getElementById('proceso').style.color = '#3380FF';
@@ -356,43 +213,25 @@ function mandoEjecutar() {
 }
 
 
-    function valida()
-    {
+function dispara()
+{
 
-    var datos = new FormData()
-
-    var documento =document.getElementById("documento").value;
-    var tipodoc =  document.getElementById("seleccion").value;
-
-
-        datos.append('tipodoc',tipodoc);
-        datos.append('documento',documento);
-
-    alert("voy ajax");
+    username = document.getElementById("username").value;
+    sedeSeleccionada=  document.getElementById("sedeSeleccionada").value;
+     grupo = document.getElementById("grupo").value;
+      subGrupo = document.getElementById("subGrupo").value;
 
 
-        $.ajax({
-            	   type: 'POST',
- 	                url: window.location.pathname,
-  	               data: datos ,
- 	      		success: function (respuesta2) {
- 	      		          var dato = JSON.parse(respuesta2);
- 	      		          alert(dato);
-
-                              $("#mensajes").html("Paciente No existe");
-                          		},
- 	      		error: function (request, status, error) {
- 	      			alert(request.responseText);
- 	      			alert (error);
- 	      			$("#mensajes").html("Error Venta AJAX O RESPUESTA");
- 	      		},
- 	      		cache : false,
- 	      		contentType : false,
- 	      		processData: false,
-
- 	        });
+        var reporteSeleccionado =  document.getElementById("reportesUsuarioSel").value;
 
 
+
+        document.getElementById("numreporte").value = reporteSeleccionado;
+
+        var final = "/Reporte1/" + reporteSeleccionado + "," + username +"," + sedeSeleccionada + "," + grupo + "," + subGrupo ;
+
+
+    document.getElementById("vale").innerHTML=    "<a href ='"  + final + "'>Ingresa Aqui</a>";
 
 
     }

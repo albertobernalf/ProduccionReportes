@@ -31,7 +31,9 @@ urlpatterns = [
     path('validaAcceso/', views.validaAcceso),
     path('salir/', views.salir),
     path('pantallaSubgrupos/<str:username>, <str:sedeSeleccionada>, <str:grupo>', views.pantallaSubgrupos),
+    path('emergenteGrupos/<str:username>, <str:sedeSeleccionada>, <str:grupo>', views.emergenteGrupos),
     path('combo/<str:username>, <str:sedeSeleccionada>, <str:grupo>, <str:subGrupo>', views.combo),
+    path('/combo/<str:username>, <str:sedeSeleccionada>, <str:grupo>, <str:subGrupo>', views.combo),
 
     #path('contrasena/<str:documento>', views.contrasena),
 

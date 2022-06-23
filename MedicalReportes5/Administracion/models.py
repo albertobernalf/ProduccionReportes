@@ -39,6 +39,7 @@ class Mae_GrupoReportes(models.Model):
     )
     id = models.AutoField(primary_key=True)
     nom_grupo = models.CharField(max_length=120, unique = True)
+    logo = models.CharField(max_length=120, default='' , unique=False)
     estadoreg = models.CharField(max_length=1, default='A', editable=True ,choices=TIPO_CHOICES,)
 
     def __str__(self):
@@ -55,6 +56,7 @@ class Mae_SubGrupoReportes(models.Model):
     id = models.AutoField(primary_key=True)
     mae_gruporeportes = models.ForeignKey('Mae_GrupoReportes', default=1, on_delete=models.PROTECT, null=False)
     nom_subgrupo = models.CharField(max_length=120, unique=True)
+    logo = models.CharField(max_length=120, default='' ,  unique=False)
     estadoreg = models.CharField(max_length=1, default='A', editable=True ,choices=TIPO_CHOICES,)
 
     class Meta:

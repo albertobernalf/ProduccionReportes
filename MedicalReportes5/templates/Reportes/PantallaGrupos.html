@@ -5,55 +5,35 @@
 <!-- desde AQUI SI SEÑORES                      -->
 
 
+
 <!--Inicia PantallaGrupos       -->
 
 <input type="hidden" id="username" name="username" value="{{Username}}">
 <input type="hidden" id="sedeSeleccionada" name="sedeSeleccionada" value="{{SedeSeleccionada}}">
 
 
-<div class="row" style=" height: 50px;">
+<!-- <div class="row" style="width:50px; height: 50px;"> -->
 
     <div class="col-xl-3"></div>
 
+
     {% for grupos in Grupos %}
 
-    {% if grupos.nombreGrupo == 'ASISTENCIAL' %}
 
     <div class="col-xl-3" style="width:50px;height:10px;">
         <figure class="figure">
 
-            <img src="{% static '/img/ASISTENCIAL.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
+            <img src="{% static grupos.logo %}" class="figure-img img-fluid rounded"
+                 style="width:400px;height:200px;"
                  alt="...">
             <figcaption class="figure-caption text-right">
                 <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
-                    {{grupos.nombreGrupo}} </a>
+                     <button type="button" class="btn btn-primary"><H6  > {{grupos.nombreGrupo}}</H6></button>
+                    </a>
             </figcaption>
         </figure>
         {{grupos.grupo}}
     </div>
-
-    {% endif %}
-
-
-    {% if grupos.nombreGrupo == 'ADMINISTRATIVO' %}
-
-    <div class="col-xl-3" style="width:50px;height:10px;">
-        <figure class="figure">
-
-            <img src="{% static '/img/ADMINISTRATIVO.jpg' %}" class="figure-img img-fluid rounded"
-                 style="width:200px;height:100px;"
-                 alt="...">
-            <figcaption class="figure-caption text-right">
-                <a href="/pantallaSubgrupos/{{Username}}, {{SedeSeleccionada}}, {{grupos.id}} ">
-                    {{grupos.nombreGrupo}} </a>
-            </figcaption>
-        </figure>
-        {{grupos.grupo}}
-    </div>
-
-    {% endif %}
-
 
     {% endfor %}
 
@@ -61,7 +41,7 @@
     <div class="col-xl-3"></div>
 
 
-</div>
+<!-- </div> -->
 <br>
 <br>
 <br>

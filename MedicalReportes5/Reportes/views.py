@@ -19,7 +19,7 @@ import math
 
 ## De Reporteador
 
-import csv
+import csv as aliascsv
 from django.views.generic import ListView, CreateView, TemplateView, View
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -236,16 +236,16 @@ def validaAcceso(request):
                                           password="BD_m3d1c4l")
 
             cur = miConexion.cursor()
-            comando = 'select  id , grupos.nom_grupo nombreGrupo from public."Administracion_mae_gruporeportes" grupos'
+            comando = 'select  id , grupos.nom_grupo nombreGrupo, grupos.logo logo  from public."Administracion_mae_gruporeportes" grupos order by grupos.id'
 
             print(comando)
             cur.execute(comando)
 
             grupos = []
 
-            for id, nombreGrupo in cur.fetchall():
+            for id, nombreGrupo, logo in cur.fetchall():
                 grupos.append(
-                    {'id': id, 'nombreGrupo': nombreGrupo})
+                    {'id': id, 'nombreGrupo': nombreGrupo , 'logo':logo})
 
             miConexion.close()
             context['Grupos'] = grupos
@@ -556,8 +556,11 @@ class Reporte1PdfView(TemplateView):
         miConexion.set_client_encoding('LATIN1')
         cur = miConexion.cursor()
 
-        comando = 'select  reportes.id numreporte, usuarios.cod_usuario usuario, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados from public."Administracion_mae_repusuarios" as usuarios,public."Administracion_mae_reportes" as reportes , public."Administracion_imhotep_sedesreportes" sedes  where usuarios.cod_Usuario = ' + "'" + username + "'" + ' and  usuarios.mae_reportes_id = reportes.id  and usuarios.cod_sede_id = sedes.id  and sedes.codreg_sede = ltrim(' + "'" + str(sedeSeleccionada) + "')" + ' AND usuarios.estadoReg=' + "'A'" + ' AND reportes.estadoReg=' + "'A'"
+        #comando = 'select  reportes.id numreporte, usuarios.cod_usuario usuario, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados from public."Administracion_mae_repusuarios" as usuarios,public."Administracion_mae_reportes" as reportes , public."Administracion_imhotep_sedesreportes" sedes  where usuarios.cod_Usuario = ' + "'" + username + "'" + ' and  usuarios.mae_reportes_id = reportes.id  and usuarios.cod_sede_id = sedes.id  and sedes.codreg_sede = ltrim(' + "'" + str(sedeSeleccionada) + "')" + ' AND usuarios.estadoReg=' + "'A'" + ' AND reportes.estadoReg=' + "'A'"
         # comando = 'select  reportes.id numreporte, usuarios.cod_usuario usuario, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados from public."Administracion_mae_repusuarios" as usuarios,  public."Administracion_mae_reportes" as reportes , public."Administracion_imhotep_sedesreportes" sedes  where usuarios.cod_Usuario = ' + "'" + username + "'" + ' and  usuarios.mae_reportes_id = reportes.id  and usuarios.cod_sede_id = sedes.id and sedes.codreg_sede = ' + "'" + sedeSeleccionada + "'" + ' AND usuarios.estadoReg=' + "'A'" + ' AND reportes.estadoReg=' + "'A'"
+
+        comando = 'select  reportes.id numreporte, usuarios.cod_usuario usuario, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados from public."Administracion_mae_repusuarios" as usuarios,public."Administracion_mae_reportes" as reportes , public."Administracion_imhotep_sedesreportes" sedes  where usuarios.cod_Usuario = ' + "'" + username + "'" + ' and  usuarios.mae_reportes_id = reportes.id  and usuarios.cod_sede_id = sedes.id  and sedes.codreg_sede = ltrim(' + "'" + str(
+            sedeSeleccionada) + "')" + ' AND usuarios.estadoReg=' + "'A'" + ' AND reportes.estadoReg=' + "'A'" + ' AND reportes.mae_gruporeportes_id= ' + str(grupo) + ' AND reportes.mae_subgruporeportes_id = ' + str(subGrupo)
 
         print(comando)
         print("pase01")
@@ -603,16 +606,16 @@ class Reporte1PdfView(TemplateView):
                                       password="BD_m3d1c4l")
 
         cur = miConexion.cursor()
-        comando = 'select  id , grupos.nom_grupo nombreGrupo from public."Administracion_mae_gruporeportes" grupos'
+        comando = 'select  id , grupos.nom_grupo nombreGrupo , grupos.logo logo from public."Administracion_mae_gruporeportes" grupos order by grupos.id'
 
         print(comando)
         cur.execute(comando)
 
         grupos = []
 
-        for id, nombreGrupo in cur.fetchall():
+        for id, nombreGrupo , logo in cur.fetchall():
             grupos.append(
-                {'id': id, 'nombreGrupo': nombreGrupo})
+                {'id': id, 'nombreGrupo': nombreGrupo , 'logo': logo})
 
         miConexion.close()
         context['Grupos'] = grupos
@@ -623,7 +626,7 @@ class Reporte1PdfView(TemplateView):
                                       password="BD_m3d1c4l")
 
         cur = miConexion.cursor()
-        comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(
+        comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo , subgrupos.logo logo from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(
             grupo)
 
         print(comando)
@@ -631,9 +634,9 @@ class Reporte1PdfView(TemplateView):
 
         subGrupos = []
 
-        for id, nombreSubGrupo in cur.fetchall():
+        for id, nombreSubGrupo , logo  in cur.fetchall():
             subGrupos.append(
-                {'id': id, 'nombreSubGrupo': nombreSubGrupo})
+                {'id': id, 'nombreSubGrupo': nombreSubGrupo ,'logo':logo})
 
         miConexion.close()
         context['SubGrupos'] = subGrupos
@@ -692,6 +695,36 @@ class Reporte1PdfView(TemplateView):
         context['SubGrupo'] = subGrupo
 
 
+        # Le doy la informacion del Reportes seleccionado
+
+        miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                      password="BD_m3d1c4l")
+        miConexion.set_client_encoding('LATIN1')
+        cur = miConexion.cursor()
+        #comando = 'select  reportes.id numreporte, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados, reportes.excel excel, reportes.pdf pdf, reportes.csv csv, reportes.grilla from public."Administracion_mae_reportes" reportes where cast(reportes.id as text)  = cast(' + str(numreporte) + ' as text)'
+        comando = 'select  reportes.id numreporte, reportes.nom_reporte reporte,reportes.cuerpo_sql, reportes.descripcion descripcion , reportes.encabezados encabezados, reportes.excel excel, reportes.pdf pdf,reportes.csv as csv,reportes.grilla from public."Administracion_mae_reportes" reportes where cast(reportes.id as text)  = cast(' + str(
+            numReporte) + ' as text)'
+        cur.execute("set client_encoding='LATIN1';")
+
+        print(comando)
+        cur.execute(comando)
+
+        reporteSeleccionado = []
+
+        for numreporte,  reporte, cuerpo_sql, descripcion, encabezados, excel, pdf, csv , grilla  in cur.fetchall():
+            reporteSeleccionado.append(
+                {'numreporte': numreporte,  'reporte': reporte, 'cuerpo_sql': cuerpo_sql,
+                 'descripcion': descripcion, 'encabezados':encabezados, 'excel':excel, 'pdf':pdf, 'csv':csv, 'grilla':grilla})
+
+        miConexion.close()
+
+        print("pase0")
+
+        context['ReporteSeleccionado'] = reporteSeleccionado
+
+
+
+
         # Consigo Numero de Parametros del reporte
 
         miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
@@ -718,26 +751,72 @@ class Reporte1PdfView(TemplateView):
 
         print ("hayParametros =", hayParametros)
 
+        ##  nuevo codigo
+        #####################
         parametros = []
         x = range(1, hayParametros)
+        # t=  range (1, hayParametros - 1)
 
-        for i in x:
-            comodin = str(i)
+        parametrosSeleccionado = request.POST.get('parametrosSeleccionado', False)
 
-            valor = request.POST.get(comodin, False)
+        print("parametrosSeleccionado NUEVO", parametrosSeleccionado)
 
-            parametros.append(valor)
+        parametrosSeleccionado1 = []
 
+        print("parametrosSeleccionado = a ", parametrosSeleccionado)
+
+        if parametrosSeleccionado == False:
+
+            print("No hay parametros selccionados")
+            for i in x:
+                comodin = str(i)
+
+                valor = request.POST.get(comodin, False)
+                print("valor del parametro = ", valor)
+                parametros.append(valor)
+
+        print("parametros = ", parametros)
         c = '?'
         total = len(parametros)
         print("numero de parametros =", total)
 
-        t = range(1, total+1)
+        t = range(1, total + 1)
+
+        # Aqui se crea un nuevo parametros 1
+        parametros1 = []
 
         for i in t:
-            print("Matriz parametros = ", parametros[i-1])
-            dato = "'" + parametros[i-1] + "'"
-            cuerpo_sql = cuerpo_sql.replace("?", dato, 1)
+            parametros1.append({"campo": i, 'valor': parametros[i - 1]})
+
+        print("parametros1 ya de devuelta = ", parametros1)
+
+        ## vamos a guardar el valor de los parametros en el context
+        context['Parametros1'] = parametros1
+        context['Parametros'] = parametros
+
+        if parametrosSeleccionado != False:
+
+            print("parametrosSeleccionado Final queda : ", parametrosSeleccionado)
+            for i in x:
+                comodin = str(i)
+                valor = request.POST.get(comodin, False)
+                print("valor del parametro = ", valor)
+                parametros.append(valor)
+
+            total = len(parametros)
+            print("numero de parametros =", total)
+            t = range(1, total + 1)
+
+            for i in t:
+                print("Matriz parametros = ", parametros[i - 1])
+                dato = "'" + parametros[i - 1] + "'"
+                cuerpo_sql = cuerpo_sql.replace("?", dato, 1)
+
+        if parametrosSeleccionado == False:
+            for i in t:
+                print("Matriz parametros = ", parametros[i - 1])
+                dato = "'" + parametros[i - 1] + "'"
+                cuerpo_sql = cuerpo_sql.replace("?", dato, 1)
 
         print("CuerpoSQl_Final = ", cuerpo_sql)
 
@@ -921,14 +1000,22 @@ class Reporte1PdfView(TemplateView):
 
         print("Estas son las Columnas :",    lasColumnas)
 
-        # Con esto se soluciona lo de  ? en el where
+
 
         if (tipoArchivo == "csv"):
+
             response = HttpResponse(content_type='text/csv')
+
             nombreReporteFinal = nombreReporte + ".csv"
             response['Content-Disposition'] = 'attachment; filename= ' + nombreReporteFinal
-            writer = csv.writer(response, csv.excel)
+
+            myFile = open(nombreReporteFinal, 'w')
+
+            with myFile:
+                writer = aliascsv.writer(response, myFile)
+
             response.write(u'\ufeff'.encode('utf8'))
+
 
             # write column headers in sheet
             titulos = ""
@@ -1579,22 +1666,43 @@ def pantallaSubgrupos(request, username, sedeSeleccionada, grupo):
     miConexion.close()
     context['ReportesUsuario'] = reportesUsuario
 
+    # Envio Nombre de Grupo Seleccionado
+
+    miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                  password="BD_m3d1c4l")
+
+    cur = miConexion.cursor()
+    comando = 'select  grupos.id id, grupos.nom_grupo nombreGrupo from public."Administracion_mae_gruporeportes" grupos where grupos.id =' + "'" + str(
+        grupo) + "'"
+
+    print(comando)
+    cur.execute(comando)
+
+    nombreGrupoSeleccionado = []
+
+    for id, nombreGrupo in cur.fetchall():
+        nombreGrupoSeleccionado.append({'id': id, 'nombreGrupo': nombreGrupo})
+
+    miConexion.close()
+    context['NombreGrupoSeleccionado'] = nombreGrupoSeleccionado
+
+
     # Envio los grupos
 
     miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
                                   password="BD_m3d1c4l")
 
     cur = miConexion.cursor()
-    comando = 'select  id , grupos.nom_grupo nombreGrupo from public."Administracion_mae_gruporeportes" grupos'
+    comando = 'select  id , grupos.nom_grupo nombreGrupo, grupos.logo logo from public."Administracion_mae_gruporeportes" grupos order by grupos.id'
 
     print(comando)
     cur.execute(comando)
 
     grupos = []
 
-    for id, nombreGrupo in cur.fetchall():
+    for id, nombreGrupo, logo in cur.fetchall():
         grupos.append(
-            {'id': id, 'nombreGrupo': nombreGrupo})
+            {'id': id, 'nombreGrupo': nombreGrupo , 'logo': logo})
 
     miConexion.close()
     context['Grupos'] = grupos
@@ -1605,16 +1713,16 @@ def pantallaSubgrupos(request, username, sedeSeleccionada, grupo):
                                   password="BD_m3d1c4l")
 
     cur = miConexion.cursor()
-    comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(grupo)
+    comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo , subgrupos.logo logo  from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(grupo)
 
     print(comando)
     cur.execute(comando)
 
     subGrupos = []
 
-    for id, nombreSubGrupo in cur.fetchall():
+    for id, nombreSubGrupo , logo in cur.fetchall():
         subGrupos.append(
-            {'id': id, 'nombreSubGrupo': nombreSubGrupo})
+            {'id': id, 'nombreSubGrupo': nombreSubGrupo , 'logo': logo})
 
     miConexion.close()
     context['SubGrupos'] = subGrupos
@@ -1639,6 +1747,7 @@ def combo(request, username, sedeSeleccionada, grupo, subGrupo):
     context['SedeSeleccionada'] = sedeSeleccionada
     context['Grupo'] = grupo
     context['SubGrupo'] = subGrupo
+    subgrupo = subGrupo
 
     # Envio los grupos
 
@@ -1646,16 +1755,16 @@ def combo(request, username, sedeSeleccionada, grupo, subGrupo):
                                   password="BD_m3d1c4l")
 
     cur = miConexion.cursor()
-    comando = 'select  id , grupos.nom_grupo nombreGrupo from public."Administracion_mae_gruporeportes" grupos'
+    comando = 'select  id , grupos.nom_grupo nombreGrupo , grupos.logo logo from public."Administracion_mae_gruporeportes" grupos order by grupos.id'
 
     print(comando)
     cur.execute(comando)
 
     grupos = []
 
-    for id, nombreGrupo in cur.fetchall():
+    for id, nombreGrupo , logo in cur.fetchall():
         grupos.append(
-            {'id': id, 'nombreGrupo': nombreGrupo})
+            {'id': id, 'nombreGrupo': nombreGrupo , 'logo': logo})
 
     miConexion.close()
     context['Grupos'] = grupos
@@ -1666,7 +1775,7 @@ def combo(request, username, sedeSeleccionada, grupo, subGrupo):
                                   password="BD_m3d1c4l")
 
     cur = miConexion.cursor()
-    comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(
+    comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo , subgrupos.logo logo from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.mae_gruporeportes_id= ' + str(
         grupo)
 
     print(comando)
@@ -1674,9 +1783,9 @@ def combo(request, username, sedeSeleccionada, grupo, subGrupo):
 
     subGrupos = []
 
-    for id, nombreSubGrupo in cur.fetchall():
+    for id, nombreSubGrupo, logo in cur.fetchall():
         subGrupos.append(
-            {'id': id, 'nombreSubGrupo': nombreSubGrupo})
+            {'id': id, 'nombreSubGrupo': nombreSubGrupo , 'logo': logo})
 
     miConexion.close()
     context['SubGrupos'] = subGrupos
@@ -1725,8 +1834,99 @@ def combo(request, username, sedeSeleccionada, grupo, subGrupo):
     miConexion.close()
     context['ReportesUsuario'] = reportesUsuario
 
+    # Envio Nombre de SubGrupo Seleccionado
+
+    miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                  password="BD_m3d1c4l")
+
+    cur = miConexion.cursor()
+    comando = 'select  id , subgrupos.nom_subgrupo nombreSubGrupo  from public."Administracion_mae_subgruporeportes" subgrupos where subgrupos.id = ' + str(
+        subgrupo) + ' AND subgrupos.mae_gruporeportes_id= ' + str(
+        grupo)
+
+    print(comando)
+    cur.execute(comando)
+
+    nombreSubGrupoSeleccionado = []
+
+    for id, nombreSubGrupo in cur.fetchall():
+        nombreSubGrupoSeleccionado.append({'id': id, 'nombreSubGrupo': nombreSubGrupo})
+
+    miConexion.close()
+    context['NombreSubGrupoSeleccionado'] = nombreSubGrupoSeleccionado
+
+    #return render(request, "Reportes/combo.html", context)
+    return render(request, "Reportes/Parametros.html", context)
 
 
+def emergenteGrupos(request, username, sedeSeleccionada, grupo):
+    # Le doy la informacion de los reportes a los que tiene acceso
 
+    context = {}
 
-    return render(request, "Reportes/combo.html", context)
+    # Sedes
+    miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                  password="BD_m3d1c4l")
+    cur = miConexion.cursor()
+    comando = 'SELECT codreg_sede, nom_sede FROM public."Administracion_imhotep_sedesreportes" where estadoReg=' + "'A'"
+    cur.execute(comando)
+    print(comando)
+
+    sedes = []
+
+    for codreg_sede, nom_sede in cur.fetchall():
+        sedes.append({'codreg_sede': codreg_sede, 'nom_sede': nom_sede})
+    miConexion.close()
+
+    context['Sedes'] = sedes
+    print("Aqui estan las sedes")
+    print(context['Sedes'])
+
+    print("username = ", username)
+
+    context['Username'] = username
+    context['SedeSeleccionada'] = sedeSeleccionada
+
+    # Consigo Nombre de la sede
+
+    miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                  password="BD_m3d1c4l")
+    cur = miConexion.cursor()
+    # comando = "SELECT codreg_sede, nom_sede FROM public."Administracion_imhotep_sedesreportes" WHERE codreg_sede = '" + sedeSeleccionada + "'"
+    comando = 'SELECT codreg_sede, nom_sede FROM public."Administracion_imhotep_sedesreportes" where estadoReg=' + "'A'"
+    cur.execute(comando)
+    print(comando)
+
+    nombreSede = []
+
+    for codreg_sede, nom_sede in cur.fetchall():
+        nombreSede.append({'codreg_sede': codreg_sede, 'nom_sede': nom_sede})
+
+    miConexion.close()
+
+    context['NombreSede'] = nombreSede
+
+    # Envio los grupos
+
+    miConexion = psycopg2.connect(host="192.168.0.238", database="bd_imhotep", port="5432", user="postgres",
+                                  password="BD_m3d1c4l")
+
+    cur = miConexion.cursor()
+    comando = 'select  id , grupos.nom_grupo nombreGrupo , grupos.logo logo from public."Administracion_mae_gruporeportes" grupos order by grupos.id'
+
+    print(comando)
+    cur.execute(comando)
+
+    grupos = []
+
+    for id, nombreGrupo, logo in cur.fetchall():
+        grupos.append(
+            {'id': id, 'nombreGrupo': nombreGrupo, 'logo': logo})
+
+    miConexion.close()
+    context['Grupos'] = grupos
+
+    print("pase0")
+
+    return render(request, "Reportes/pantallaGrupos.html", context)
+
